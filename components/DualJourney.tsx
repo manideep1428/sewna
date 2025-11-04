@@ -127,7 +127,7 @@ export default function DualJourney() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={handleDesignerClick}
-            className="relative group/btn px-8 py-4 rounded-full bg-white text-black font-medium flex items-center gap-3 mx-auto overflow-hidden transition-all duration-300 hover:bg-[#00b67f] hover:text-white hover:shadow-xl hover:shadow-[#00b67f]/30"
+            className="relative group/btn px-8 py-4 rounded-full bg-white text-black font-medium flex items-center gap-3 mx-auto overflow-hidden transition-all duration-300 hover:bg-[#00b67f] hover:text-white hover:shadow-xl hover:shadow-[#00b67f]/30 cursor-pointer"
           >
             <AnimatePresence>
               {designerRipples.map((ripple) => (
@@ -140,7 +140,7 @@ export default function DualJourney() {
                   }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="absolute rounded-full hover:cursor-pointer"
+                  className="absolute rounded-full"
                   style={{
                     left: ripple.x,
                     top: ripple.y,
@@ -237,7 +237,7 @@ export default function DualJourney() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={handleCustomerClick}
-            className="relative group/btn px-8 py-4 rounded-full bg-black text-white font-medium flex items-center gap-3 mx-auto overflow-hidden transition-all duration-300 hover:bg-[#00b67f] hover:shadow-xl hover:shadow-[#00b67f]/30"
+            className="relative group/btn px-8 py-4 rounded-full bg-black text-white font-medium flex items-center gap-3 mx-auto overflow-hidden transition-all duration-300 hover:bg-[#00b67f] hover:shadow-xl hover:shadow-[#00b67f]/30 cursor-pointer"
           >
             <AnimatePresence>
               {customerRipples.map((ripple) => (
