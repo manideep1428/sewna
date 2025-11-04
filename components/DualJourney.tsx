@@ -4,13 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import AnimatedDiagonalLine from "./AnimatedDiagonalLine";
-import DesignerOnboarding from "./DesignerOnboarding";
 
 export default function DualJourney() {
+  const router = useRouter();
   const [designerRipples, setDesignerRipples] = useState<{ id: number; x: number; y: number }[]>([]);
   const [customerRipples, setCustomerRipples] = useState<{ id: number; x: number; y: number }[]>([]);
-  const [isDesignerModalOpen, setIsDesignerModalOpen] = useState(false);
 
   const handleDesignerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -23,9 +24,9 @@ export default function DualJourney() {
       setDesignerRipples((prev) => prev.filter((ripple) => ripple.id !== id));
     }, 1200);
     
-    // Open designer onboarding modal
+    // Navigate to designer registration page
     setTimeout(() => {
-      setIsDesignerModalOpen(true);
+      router.push("/designer/register");
     }, 300);
   };
 
@@ -39,6 +40,12 @@ export default function DualJourney() {
     setTimeout(() => {
       setCustomerRipples((prev) => prev.filter((ripple) => ripple.id !== id));
     }, 1200);
+    
+    // Show toast notification
+    toast.success("🚧 Feature Not Built Yet", {
+      description: "We're working hard to bring this feature to you. Stay tuned!",
+      duration: 4000,
+    });
   };
 
   const designerImages = [
@@ -113,44 +120,41 @@ export default function DualJourney() {
           </motion.p>
 
           <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
-            whileHover={{ scale: 1.05, backgroundColor: "#00b67f", color: "white" }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.98 }}
             onClick={handleDesignerClick}
-            className="relative group/btn px-8 py-4 rounded-full font-medium flex items-center gap-3 mx-auto overflow-hidden"
-            style={{ backgroundColor: "white", color: "black" }}
+            className="relative group/btn px-8 py-4 rounded-full bg-white text-black font-medium flex items-center gap-3 mx-auto overflow-hidden transition-all duration-300 hover:bg-[#00b67f] hover:text-white hover:shadow-xl hover:shadow-[#00b67f]/30"
           >
             <AnimatePresence>
               {designerRipples.map((ripple) => (
                 <motion.span
                   key={ripple.id}
-                  initial={{ scale: 0, opacity: 0.8 }}
+                  initial={{ scale: 0, opacity: 0.5 }}
                   animate={{ 
-                    scale: 5, 
-                    opacity: 0,
-                    rotate: [0, 90, 180]
+                    scale: 4, 
+                    opacity: 0
                   }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className="absolute rounded-full"
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="absolute rounded-full hover:cursor-pointer"
                   style={{
                     left: ripple.x,
                     top: ripple.y,
-                    width: "30px",
-                    height: "30px",
-                    background: "radial-gradient(circle, rgba(0, 182, 127, 0.6) 0%, rgba(0, 255, 150, 0.3) 50%, transparent 70%)",
+                    width: "40px",
+                    height: "40px",
+                    background: "radial-gradient(circle, rgba(0, 182, 127, 0.4) 0%, rgba(0, 182, 127, 0.2) 50%, transparent 70%)",
                     transform: "translate(-50%, -50%)",
-                    pointerEvents: "none",
-                    filter: "blur(8px)"
+                    pointerEvents: "none"
                   }}
                 />
               ))}
             </AnimatePresence>
-            <span className="relative z-10">Join as Designer</span>
-            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform relative z-10" />
+            <span className="relative z-10 font-semibold">Join as Designer</span>
+            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-all duration-300 relative z-10" />
           </motion.button>
         </div>
 
@@ -226,44 +230,41 @@ export default function DualJourney() {
           </motion.p>
 
           <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
-            whileHover={{ scale: 1.05, backgroundColor: "#00b67f" }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.98 }}
             onClick={handleCustomerClick}
-            className="relative group/btn px-8 py-4 rounded-full font-medium flex items-center gap-3 mx-auto overflow-hidden"
-            style={{ backgroundColor: "black", color: "white" }}
+            className="relative group/btn px-8 py-4 rounded-full bg-black text-white font-medium flex items-center gap-3 mx-auto overflow-hidden transition-all duration-300 hover:bg-[#00b67f] hover:shadow-xl hover:shadow-[#00b67f]/30"
           >
             <AnimatePresence>
               {customerRipples.map((ripple) => (
                 <motion.span
                   key={ripple.id}
-                  initial={{ scale: 0, opacity: 0.8 }}
+                  initial={{ scale: 0, opacity: 0.5 }}
                   animate={{ 
-                    scale: 5, 
-                    opacity: 0,
-                    rotate: [0, -90, -180]
+                    scale: 4, 
+                    opacity: 0
                   }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1, ease: "easeOut" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
                   className="absolute rounded-full"
                   style={{
                     left: ripple.x,
                     top: ripple.y,
-                    width: "30px",
-                    height: "30px",
-                    background: "radial-gradient(circle, rgba(0, 182, 127, 0.6) 0%, rgba(0, 255, 150, 0.3) 50%, transparent 70%)",
+                    width: "40px",
+                    height: "40px",
+                    background: "radial-gradient(circle, rgba(0, 182, 127, 0.4) 0%, rgba(0, 182, 127, 0.2) 50%, transparent 70%)",
                     transform: "translate(-50%, -50%)",
-                    pointerEvents: "none",
-                    filter: "blur(8px)"
+                    pointerEvents: "none"
                   }}
                 />
               ))}
             </AnimatePresence>
-            <span className="relative z-10">Find a Designer</span>
-            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform relative z-10" />
+            <span className="relative z-10 font-semibold">Find a Designer</span>
+            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-all duration-300 relative z-10" />
           </motion.button>
         </div>
 
@@ -282,12 +283,6 @@ export default function DualJourney() {
           }}
         />
       </motion.div>
-      
-      {/* Designer Onboarding Modal */}
-      <DesignerOnboarding 
-        isOpen={isDesignerModalOpen} 
-        onClose={() => setIsDesignerModalOpen(false)} 
-      />
     </section>
   );
 }

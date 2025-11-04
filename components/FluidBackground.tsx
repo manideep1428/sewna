@@ -17,8 +17,6 @@ export default function FluidBackground(): JSX.Element {
   const [lines, setLines] = React.useState<Line[]>([]);
 
   React.useEffect(() => {
-    let lineIdCounter = 0;
-    
     const createNewLine = (): Line => {
       const startY: number = Math.random() * 100;
       const controlY1: number = Math.random() * 100;
@@ -30,7 +28,7 @@ export default function FluidBackground(): JSX.Element {
       const controlX3: number = 75 + Math.random() * 20;
       
       return {
-        id: lineIdCounter++,
+        id: Date.now() + Math.random() * 1000000, // Unique ID using timestamp + random
         path: `M 0 ${startY} Q ${controlX1} ${controlY1}, ${controlX2} ${controlY2} T ${controlX3} ${endY} T 150 ${startY}`,
         strokeWidth: 2 + Math.random() * 4,
         duration: 3 + Math.random() * 3,
@@ -92,7 +90,7 @@ export default function FluidBackground(): JSX.Element {
           scale: [1, 1.3, 1.1, 1],
         }}
         transition={{
-          duration: 20,
+          duration: 10,
           repeat: Infinity,
           ease: "easeInOut",
         }}

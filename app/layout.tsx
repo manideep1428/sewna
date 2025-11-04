@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Allura, Dancing_Script } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,6 +40,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${allura.variable} ${dancingScript.variable} antialiased`}
       >
         {children}
+        <Toaster 
+          position="top-center" 
+          toastOptions={{
+            style: {
+              background: '#00b67f',
+              color: 'white',
+              border: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+            },
+          }}
+        />
       </body>
     </html>
   );
