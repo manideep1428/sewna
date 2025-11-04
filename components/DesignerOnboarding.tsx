@@ -109,7 +109,7 @@ export default function DesignerOnboarding({ isOpen, onClose }: DesignerOnboardi
                 <User className="w-8 h-8 text-[#00b67f]" />
               </div>
               <h3 className="text-2xl font-serif text-black mb-2">Personal Information</h3>
-              <p className="text-gray-600">Let's get to know you</p>
+              <p className="text-gray-600">{"Let's get to know you"}</p>
             </div>
 
             <div>
@@ -250,10 +250,16 @@ export default function DesignerOnboarding({ isOpen, onClose }: DesignerOnboardi
                 <div className="grid grid-cols-3 gap-4 mt-4">
                   {previewImages.map((preview, index) => (
                     <div key={index} className="relative aspect-square rounded-lg overflow-hidden group">
-                      <img src={preview} alt={`Preview ${index}`} className="w-full h-full object-cover" />
+                      <Image 
+                        src={preview} 
+                        alt={`Preview ${index}`} 
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
                       <button
                         onClick={() => removeImage(index)}
-                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-10"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -338,8 +344,7 @@ export default function DesignerOnboarding({ isOpen, onClose }: DesignerOnboardi
 
             <div className="bg-[#00b67f]/10 rounded-lg p-4">
               <p className="text-sm text-gray-700">
-                By submitting, you agree to SEWNA's Terms of Service and confirm that all information provided is accurate.
-              </p>
+                {"By submitting, you agree to SEWNA's Terms of Service and confirm that all information provided is accurate."}</p>
             </div>
           </motion.div>
         );

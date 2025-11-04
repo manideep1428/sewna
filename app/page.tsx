@@ -1,10 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ScrollIndicator from "@/components/ScrollIndicator";
-import AnimatedBackground from "@/components/AnimatedBackground";
 import FluidBackground from "@/components/FluidBackground";
 import ImageCarousel from "@/components/ImageCarousel";
-import LiquidLines from "@/components/LiquidLines";
 import DualJourney from "@/components/DualJourney";
 
 export default function Home() {
